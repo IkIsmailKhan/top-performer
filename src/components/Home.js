@@ -1,7 +1,7 @@
-import logo from './logo.svg';
-import './index.css';
 import { useState, useEffect } from 'react';
+import logo from '../assets/logo.svg';
 import axios from 'axios';
+import '../styles/index.css';
 
 function Home() {
 
@@ -38,7 +38,8 @@ function Home() {
             <img src={logo} className="App-logo" alt="logo" /> :
             data.map(item => (
               <div key={item.name}>
-                <h3>{item.name}</h3>
+                <h3 className='text-3xl font-bold underline'>{item.name}</h3>
+                <p>{item.city}</p>
               </div>
             ))}
         </div>
