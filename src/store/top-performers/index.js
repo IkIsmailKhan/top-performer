@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
-import axios from 'axios';
+import dummy from '../../api/dummy';
 
 
 export const fetchTopPerformers = createAsyncThunk('topPerformers/fetchTopPerformers', async (params, { rejectWithValue }) => {
   try {
-    const response = await axios.get('https://mocki.io/v1/d4867d8b-b5d5-4a48-a4ab-79131b5809b8');
+    const response = await dummy.get('/users');
 
     return response.data
   }
