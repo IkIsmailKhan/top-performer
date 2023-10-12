@@ -12,7 +12,9 @@ function Home() {
 
   useEffect(() => {
     dispatch(fetchTopPerformers())
-  }, [])
+  },[dispatch])
+
+  console.log('1')
 
   return (
       <div className="app-container">
@@ -21,8 +23,8 @@ function Home() {
             <img src={logo} className="h-40" alt="logo" /> :
             topPerformers.data.map(item => (
               <div key={item.name}>
-                <h3 className='text-3xl font-bold underline'>Name: {item.name}</h3>
-                <p>City: {item.city}</p>
+                <h3 className='text-3xl '>{item.name}</h3>
+                <p className='mb-5'>{item.city}</p>
               </div>
             ))
         }
