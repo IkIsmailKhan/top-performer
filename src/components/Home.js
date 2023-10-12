@@ -1,50 +1,32 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import logo from '../assets/logo.svg';
-import axios from 'axios';
 import '../styles/index.css';
+
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchTopPerformers } from '../store/top-performers/index';
 
 function Home() {
 
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
-
+  const dispatch = useDispatch()
+  const topPerformers = useSelector(state => state.topPerformers)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get('https://mocki.io/v1/d4867d8b-b5d5-4a48-a4ab-79131b5809b8');
-        setData(response.data)
-        setLoading(false)
-      }
-      catch (e) {
-        console.log(e)
-      }
-    };
-
-    fetchData();
-
-    // const interval = setInterval(() => {
-    //   fetchData();
-    // }, 5000);
-
-    // return () => clearInterval(interval);
-  }, []);
+    dispatch(fetchTopPerformers())
+  }, [])
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-          {loading ?
-            <img src={logo} className="App-logo" alt="logo" /> :
-            data.map(item => (
+      <div className="app-container">
+        {
+          topPerformers.loading ?
+            <img src={logo} className="h-40" alt="logo" /> :
+            topPerformers.data.map(item => (
               <div key={item.name}>
-                <h3 className='text-3xl font-bold underline'>{item.name}</h3>
-                <p>{item.city}</p>
+                <h3 className='text-3xl font-bold underline'>Name: {item.name}</h3>
+                <p>City: {item.city}</p>
               </div>
-            ))}
-        </div>
-      </header>
-    </div>
+            ))
+        }
+      </div>
   );
 }
 
